@@ -386,7 +386,7 @@ img { display: block; max-width: 100%; }
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--font-ui);
-  font-size: 0.5rem;
+  font-size: 0.65rem;
   letter-spacing: 0.15em;
   color: var(--gold);
   white-space: nowrap;
@@ -432,22 +432,22 @@ section {
 }
 .section-eyebrow {
   font-family: var(--font-ui);
-  font-size: 0.9rem;
-  letter-spacing: 0.28em;
+  font-size: 0.78rem;
+  letter-spacing: 0.26em;
   color: var(--gold);
   text-transform: uppercase;
   margin-bottom: 20px;
 }
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 6.5vw, 6.5rem);
+  font-size: clamp(3rem, 5.5vw, 5rem);
   font-weight: 300;
   line-height: 1.03;
   margin-bottom: 28px;
 }
 .section-title em { font-style: italic; color: var(--gold-light); }
 .section-subtitle {
-  font-size: 1.15rem;
+  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
   color: var(--white-dim);
   max-width: 780px;
   line-height: 1.8;
@@ -502,6 +502,11 @@ section {
   transition: border-color 0.3s, color 0.3s;
 }
 .stage-pill:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Hero title override */
+.hero-section .section-title {
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+}
 
 /* Hero CTA */
 .hero-cta-wrap {
@@ -677,7 +682,7 @@ section {
   bottom: 12px;
   left: 14px;
   font-family: var(--font-ui);
-  font-size: 0.5rem;
+  font-size: 0.65rem;
   letter-spacing: 0.2em;
   color: rgba(240,237,232,0.5);
   z-index: 3;
@@ -753,7 +758,7 @@ section {
 }
 .pkg-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
   font-weight: 300;
   line-height: 1.1;
 }
@@ -890,7 +895,7 @@ section {
 }
 .cta-headline {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(3rem, 5.5vw, 4.8rem);
   font-weight: 300;
   font-style: italic;
   color: var(--gold-light);
@@ -947,7 +952,7 @@ section {
 }
 .cta-hint-text {
   font-family: var(--font-ui);
-  font-size: 0.52rem;
+  font-size: 0.67rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
@@ -1001,7 +1006,7 @@ section {
   background: var(--gold);
   color: var(--deep);
   font-family: var(--font-ui);
-  font-size: 0.58rem;
+  font-size: 0.73rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   padding: 10px 28px;
@@ -1119,6 +1124,46 @@ section {
   color: var(--white-faint);
   text-transform: uppercase;
   padding-top: 10px;
+}
+
+/* ============================================================
+   INSTITUTIONAL DESIGN POLISH
+   ============================================================ */
+
+/* Institutional left-accent on section titles */
+.section-title-wrap {
+  position: relative;
+  padding-left: 0;
+}
+
+/* Bigger stage numbers as visual anchors */
+.stage-number-large {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 10vw, 9rem);
+  font-weight: 300;
+  color: rgba(184,150,90,0.08);
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Stronger section dividers */
+.section-rule-full {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 0 0 64px 0;
+}
+
+/* Package tier label enhancement */
+.pkg-badge {
+  font-size: 0.62rem !important;
+  letter-spacing: 0.2em !important;
+  padding: 5px 14px !important;
 }
 
 /* ============================================================
@@ -1251,7 +1296,7 @@ section {
       <div>
         <div class="info-box">
           <div class="info-box-title">What Gets In The Way</div>
-          <p style="font-size:1.08rem;color:var(--white-dim);line-height:1.7;margin-bottom:20px;">None of these kill a deal outright. They just make it harder to say yes to. And in a world where investors see dozens of opportunities a week, 'harder to say yes to' means 'won’t happen.'</p>
+          <p style="font-size:1.15rem;color:var(--white-dim);line-height:1.7;margin-bottom:20px;">None of these kill a deal outright. They just make it harder to say yes to. And in a world where investors see dozens of opportunities a week, 'harder to say yes to' means 'won’t happen.'</p>
           <ul class="info-list">
             <li>A projection that doesn’t tie to the story</li>
             <li>A structure that isn’t obvious to a reader</li>
@@ -1361,7 +1406,7 @@ section {
 
     <div class="info-box reveal reveal-delay-2" style="max-width:800px;margin-bottom:64px;">
       <div class="info-box-title">What We Bring That You Don’t Have on Your Own</div>
-      <p style="font-size:1.08rem;color:var(--white-dim);line-height:1.7;">
+      <p style="font-size:1.15rem;color:var(--white-dim);line-height:1.7;">
         It’s not just design. It’s not just templates. It’s judgment about what matters to investors right now. Understanding of how different firms think — venture, family offices, institutional capital. Relationships that inform how we frame things. And a sense of professional form: what a serious opportunity looks like on the page, in the room, and when someone reviews it alone at 10 p.m. on a Tuesday.
       </p>
     </div>
@@ -1444,7 +1489,7 @@ section {
         </div>
       </div>
       <div class="pkg-divider"></div>
-      <p style="font-size:1.08rem;color:var(--white-dim);line-height:1.7;max-width:700px;margin-bottom:36px;">
+      <p style="font-size:1.15rem;color:var(--white-dim);line-height:1.7;max-width:700px;margin-bottom:36px;">
         Focused on AI-generated marketing and presentation assets to position the opportunity. Ideal for projects that need fast positioning with strong visual storytelling.
       </p>
       <ul class="pkg-features">
@@ -1480,18 +1525,37 @@ section {
         </div>
       </div>
       <div class="pkg-divider"></div>
-      <p style="font-size:1.08rem;color:var(--white-dim);line-height:1.7;max-width:700px;margin-bottom:36px;">
-        Combines AI production with real media assets, providing stronger brand credibility and media engagement. Includes everything in Package 1 plus:
+      <p style="font-size:1.15rem;color:var(--white-dim);line-height:1.7;max-width:700px;margin-bottom:36px;">
+        Full capital foundation from Package 01, elevated with real media assets and expanded investor outreach.
       </p>
-      <ul class="pkg-features">
-        <li>Hybrid AI + real video production</li>
-        <li>Marketing reels</li>
-        <li>Enhanced visual storytelling</li>
-        <li>Additional appearances of Chris with the project environment</li>
-        <li>Expanded investor marketing strategy</li>
-        <li>Social media investor outreach preparation</li>
-        <li>Capital raise positioning consultation</li>
-      </ul>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Capital Foundation — Included from Package 01</div>
+        <ul class="pkg-features">
+          <li>Capital structuring consultation</li>
+          <li>Investor introduction preparation</li>
+          <li>Data room review and recommendations</li>
+          <li>Online deal marketing strategy</li>
+          <li>Investor presentation support</li>
+          <li>AI-generated promotional visuals</li>
+          <li>AI cinematic scenes using project images</li>
+          <li>AI-generated interactions featuring Chris within the environment</li>
+          <li>Digital promotional reels</li>
+        </ul>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Enhanced Media &amp; Marketing — New in Package 02</div>
+        <ul class="pkg-features">
+          <li>Hybrid AI + real video production</li>
+          <li>Enhanced visual storytelling</li>
+          <li>Additional appearances of Chris with the project environment</li>
+          <li>Expanded investor marketing strategy</li>
+          <li>Social media investor outreach preparation</li>
+          <li>Capital raise positioning consultation</li>
+          <li>Marketing reels</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -1514,12 +1578,37 @@ section {
         </div>
       </div>
       <div class="pkg-divider"></div>
-      <p style="font-size:1.08rem;color:var(--white-dim);line-height:1.7;max-width:700px;margin-bottom:36px;">
-        The flagship capital advisory package designed for projects that benefit from high-visibility investor marketing and real event activation. Includes everything in Packages 1 &amp; 2 plus:
-      </p>
+
+      <div class="pkg-sub-section" style="margin-top:0;padding-top:0;border-top:none;">
+        <div class="pkg-sub-title">Capital Foundation — From Package 01</div>
+        <ul class="pkg-features">
+          <li>Capital structuring consultation</li>
+          <li>Investor introduction preparation</li>
+          <li>Data room review and recommendations</li>
+          <li>Online deal marketing strategy</li>
+          <li>Investor presentation support</li>
+          <li>AI-generated promotional visuals</li>
+          <li>AI cinematic scenes using project images</li>
+          <li>AI-generated interactions featuring Chris within the environment</li>
+          <li>Digital promotional reels</li>
+        </ul>
+      </div>
 
       <div class="pkg-sub-section">
-        <div class="pkg-sub-title">Real Event Activation</div>
+        <div class="pkg-sub-title">Media &amp; Marketing — From Package 02</div>
+        <ul class="pkg-features">
+          <li>Hybrid AI + real video production</li>
+          <li>Enhanced visual storytelling</li>
+          <li>Additional appearances of Chris with the project environment</li>
+          <li>Expanded investor marketing strategy</li>
+          <li>Social media investor outreach preparation</li>
+          <li>Capital raise positioning consultation</li>
+          <li>Marketing reels</li>
+        </ul>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Real Event Activation — New in Package 03</div>
         <ul class="pkg-features">
           <li>Live fashion or brand event at the project space</li>
           <li>Space transformation and staging</li>
