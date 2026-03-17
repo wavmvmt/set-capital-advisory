@@ -154,12 +154,20 @@ img { display: block; max-width: 100%; }
 
 /* Logo */
 .splash-logo {
-  width: clamp(80px, 10vw, 130px);
+  width: clamp(180px, 22vw, 320px);
   height: auto;
-  margin-bottom: 28px;
+  margin-bottom: 36px;
   opacity: 0;
   animation: fadeDown 1s ease 0.3s forwards;
-  filter: drop-shadow(0 0 20px rgba(184,150,90,0.3));
+  filter: drop-shadow(0 0 32px rgba(184,150,90,0.35));
+}
+/* Logo used in page sections */
+.section-logo {
+  height: clamp(38px, 4vw, 56px);
+  width: auto;
+  display: block;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 10px rgba(184,150,90,0.2));
 }
 
 /* SET ENTERPRISES — large */
@@ -988,6 +996,92 @@ section {
 .cta-btn.primary { background: var(--gold); color: var(--deep); border-color: var(--gold); }
 .cta-btn.primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
 .cta-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+/* Bouncing arrow hint */
+@keyframes ctaBounce {
+  0%   { transform: translateY(0) scale(1); }
+  30%  { transform: translateY(-7px) scale(1.08); }
+  50%  { transform: translateY(-3px) scale(1.04); }
+  70%  { transform: translateY(-9px) scale(1.1); }
+  85%  { transform: translateY(-2px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+.cta-hint-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.cta-hint-text {
+  font-family: var(--font-ui);
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+.cta-bounce-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  opacity: 0.8;
+  animation: ctaBounce 1.6s cubic-bezier(0.4,0,0.2,1) infinite;
+  margin-bottom: 8px;
+}
+.cta-bounce-arrow svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Email copy btn */
+.cta-btn-email {
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border: 1px solid var(--border-md);
+  color: var(--white-dim);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background: none;
+}
+.cta-btn-email:hover { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+.cta-btn-email svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+/* Copied toast */
+#copyToast {
+  position: fixed;
+  bottom: 88px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: var(--gold);
+  color: var(--deep);
+  font-family: var(--font-ui);
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 10px 28px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 9000;
+}
+#copyToast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 .cta-footer {
   margin-top: 80px;
   padding-top: 48px;
@@ -1159,6 +1253,7 @@ section {
      —————————————————————————————— -->
 <section class="hero-section video-bg" id="hero" aria-label="Overview">
   <div class="section-inner">
+    <img src="assets/images/set-logo.png" class="section-logo reveal" style="margin:0 auto 32px;" alt="SET Enterprises" />
     <div class="section-eyebrow reveal">Capital Markets Advisory</div>
     <h1 class="section-title reveal reveal-delay-1">
       Engagement Pipeline<br />&amp; <em>Proposal Structure</em>
@@ -1557,6 +1652,7 @@ section {
      —————————————————————————————— -->
 <section class="cta-section" id="contact" aria-label="Contact">
   <div class="section-inner">
+    <img src="assets/images/set-logo.png" class="section-logo reveal" style="margin:0 auto 40px;" alt="SET Enterprises" />
     <div class="section-eyebrow reveal">Ready to Begin</div>
     <div class="cta-headline reveal reveal-delay-1">Capital · Infrastructure · Growth</div>
     <div class="cta-divider-text reveal reveal-delay-2">Set Enterprises &nbsp;·&nbsp; Set Ventures &nbsp;·&nbsp; Set Marketing</div>
@@ -1565,14 +1661,31 @@ section {
       Ready to explore whether your transaction is the right fit for our network? Start with a confidential intake conversation — no disclosure required.
     </p>
     <div class="cta-buttons reveal reveal-delay-4">
-      <a href="https://calendly.com/marketingbyset/" target="_blank" rel="noopener noreferrer" class="cta-btn primary">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-        Book a Consultation
-      </a>
-      <a href="mailto:chris@marketingbyset.com" class="cta-btn">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-        chris@marketingbyset.com
-      </a>
+
+      <!-- Calendly button with bouncing arrow -->
+      <div class="cta-hint-wrap">
+        <div class="cta-hint-text">Click here to schedule a consultation</div>
+        <div class="cta-bounce-arrow">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <a href="https://calendly.com/marketingbyset/" target="_blank" rel="noopener noreferrer" class="cta-btn primary">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Book a Consultation
+        </a>
+      </div>
+
+      <!-- Email copy-to-clipboard with bouncing arrow -->
+      <div class="cta-hint-wrap">
+        <div class="cta-hint-text">Click to copy email</div>
+        <div class="cta-bounce-arrow" style="animation-delay:0.4s;">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <button class="cta-btn-email" onclick="copyEmail(this)">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          chris@marketingbyset.com
+        </button>
+      </div>
+
     </div>
     <div class="cta-footer reveal reveal-delay-4">
       SET Enterprises · Capital Markets Advisory · Confidential
@@ -1602,6 +1715,11 @@ section {
 <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
 </button>
+
+<!-- ============================================================
+     COPY TOAST
+     ============================================================ -->
+<div id="copyToast">Copied to clipboard</div>
 
 <!-- ============================================================
      AUDIO
@@ -1806,6 +1924,28 @@ section {
   });
 
 })();
+
+/* ── Copy email to clipboard ── */
+function copyEmail(btn) {
+  var email = 'chris@marketingbyset.com';
+  navigator.clipboard.writeText(email).then(function () {
+    var toast = document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }).catch(function () {
+    /* fallback for older browsers */
+    var ta = document.createElement('textarea');
+    ta.value = email;
+    ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var toast = document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  });
+}
 </script>
 
 </body>
