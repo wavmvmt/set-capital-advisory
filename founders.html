@@ -1188,11 +1188,14 @@ section {
    SOUND TOGGLE BUTTON
    ============================================================ */
 .sound-toggle {
+  display: none;
+}
+.sound-toggle.active {
   position: fixed;
   bottom: 32px;
   left: 32px;
   z-index: 9998;
-  display: none;
+  display: flex;
   align-items: center;
   gap: 9px;
   background: rgba(8,10,16,0.82);
@@ -1207,9 +1210,6 @@ section {
   transition: background 0.25s, border-color 0.25s, color 0.25s, opacity 0.25s;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-}
-.sound-toggle.active {
-  display: flex;
 }
 .sound-toggle:hover {
   background: rgba(184,150,90,0.12);
