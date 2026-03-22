@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SET Enterprises · Capital Advisory · The SET OS</title>
+<meta property="og:title" content="SET Enterprises · Capital Advisory · The SET OS" />
+<meta property="og:description" content="350K+ followers. Millions in monthly reach. Institutional-grade due diligence. A proprietary system that makes your raise capital-ready, from narrative to data room." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+
+/* ============================================================
+   CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --deep:        #080A10;
+  --surface:     rgba(240,235,225,0.05);
+  --surface-md:  rgba(240,235,225,0.09);
+  --gold:        #B8965A;
+  --gold-light:  #D4B078;
+  --gold-dim:    rgba(184,150,90,0.35);
+  --white:       #F0EDE8;
+  --white-dim:   rgba(240,237,232,0.82);
+  --white-faint: rgba(240,237,232,0.55);
+  --border:      rgba(184,150,90,0.18);
+  --border-md:   rgba(184,150,90,0.32);
+  --overlay:     rgba(8,10,16,0.62);
+  --font-display:'Cormorant Garamond', serif;
+  --font-ui:     'Barlow Condensed', sans-serif;
+  --font-body:   'Barlow', sans-serif;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--deep);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ============================================================
+   SPLASH SCREEN
+   ============================================================ */
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--deep);
+  overflow: hidden;
+}
+.splash-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.splash-video-wrap iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 177.78vh; height: 100%;
+  min-width: 100%; min-height: 56.25vw;
+  border: none;
+  pointer-events: none;
+}
+.splash-video-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(8,10,16,0.60);
+  z-index: 1;
+}
+.splash-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  animation: grainShift 0.4s steps(1) infinite;
+}
+@keyframes grainShift {
+  0%  { background-position: 0 0; }
+  25% { background-position: 40px -60px; }
+  50% { background-position: -30px 20px; }
+  75% { background-position: 60px 30px; }
+}
+.splash-sparkle {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+.sparkle-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 6px 2px rgba(212,176,120,0.8);
+}
+@keyframes sparkleUp {
+  0%   { opacity: 0; transform: translate(0,0) scale(0.3); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(0); }
+}
+@keyframes splashRipple {
+  0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.6; }
+  100% { transform: translate(-50%,-50%) scale(4); opacity: 0; }
+}
+.splash-ripple {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  pointer-events: none;
+  animation: splashRipple 0.8s ease-out forwards;
+  top: 50%; left: 50%;
+}
+.splash-inner {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.splash-logo {
+  width: clamp(320px, 55vw, 700px);
+  height: auto;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeDown 1s ease 0.3s forwards;
+  filter: drop-shadow(0 0 32px rgba(184,150,90,0.35));
+}
+.section-logo {
+  width: clamp(320px, 55vw, 700px);
+  height: auto;
+  display: block;
+  opacity: 0.92;
+  filter: drop-shadow(0 0 16px rgba(184,150,90,0.3));
+}
+.splash-brand {
+  font-family: var(--font-ui);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1;
+  opacity: 0;
+  animation: fadeDown 1s ease 0.55s forwards;
+  margin-bottom: 10px;
+}
+.splash-subtitle {
+  font-family: var(--font-ui);
+  font-size: clamp(0.65rem, 1.5vw, 1rem);
+  letter-spacing: 0.38em;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeDown 1s ease 0.75s forwards;
+  margin-bottom: 56px;
+}
+.splash-rule {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0;
+  animation: fadeIn 1s ease 0.9s forwards;
+  margin-bottom: 48px;
+}
+.splash-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 1.0s forwards;
+}
+.splash-dots {
+  display: flex;
+  gap: 10px;
+}
+.splash-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.3;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+.splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+.splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(1); }
+  40% { opacity: 1; transform: scale(1.4); }
+}
+.splash-loading-text {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: var(--white-faint);
+  text-transform: uppercase;
+}
+.splash-enter {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+.splash-enter.visible {
+  opacity: 1;
+  display: flex;
+}
+.splash-enter-text {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 6.5vw, 5.5rem);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  line-height: 1;
+  transition: color 0.3s ease;
+  text-shadow: 0 0 40px rgba(240,237,232,0.2);
+}
+.splash-enter-arrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: rgba(184,150,90,0.7);
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.splash-enter-arrow svg {
+  width: 14px; height: 14px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.5;
+  transition: transform 0.3s;
+}
+.splash-enter:hover .splash-enter-text { color: var(--gold-light); text-shadow: 0 0 60px rgba(212,176,120,0.4); }
+.splash-enter:hover .splash-enter-arrow { color: var(--gold); }
+.splash-enter:hover .splash-enter-arrow svg { transform: translateY(3px); }
+.splash-enter.entering .splash-enter-text {
+  animation: enterFlash 0.5s ease forwards;
+}
+@keyframes enterFlash {
+  0%   { color: var(--white); transform: scale(1); }
+  30%  { color: var(--gold-light); transform: scale(1.05); text-shadow: 0 0 80px rgba(212,176,120,0.8); }
+  100% { color: var(--gold-light); transform: scale(1.02); opacity: 0.5; }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================================
+   FIXED PAGE BACKGROUND VIDEO
+   ============================================================ */
+#pageBgVideo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+#pageBgVideo.active { opacity: 1; }
+#pageBgVideo iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 177.78vh; height: 100%;
+  min-width: 100%; min-height: 56.25vw;
+  border: none;
+  pointer-events: none;
+}
+#pageBgVideo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(8,10,16,0.55);
+  z-index: 1;
+}
+
+/* ============================================================
+   MAIN CONTENT WRAPPER
+   ============================================================ */
+#main {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+#main.active { opacity: 1; }
+
+/* ============================================================
+   SIDE NAVIGATION
+   ============================================================ */
+.side-nav {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.side-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(184,150,90,0.3);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  padding: 0;
+  position: relative;
+}
+.side-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  white-space: nowrap;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.side-dot:hover::after, .side-dot.active::after { opacity: 1; }
+.side-dot.active { background: var(--gold); transform: scale(1.4); }
+.side-dot:hover { background: var(--gold-light); }
+
+/* ============================================================
+   SHARED SECTION STYLES
+   ============================================================ */
+section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.section-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 120px 80px;
+}
+.solid-bg { background: var(--deep); }
+.solid-bg-alt { background: #0D0F16; }
+.video-bg { background: transparent; }
+.video-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(8,10,16,0.45);
+  z-index: 1;
+}
+.section-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  letter-spacing: 0.26em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5.5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.03;
+  margin-bottom: 28px;
+}
+.section-title em { font-style: italic; color: var(--gold-light); }
+.section-subtitle {
+  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+  color: var(--white-dim);
+  max-width: 780px;
+  line-height: 1.8;
+  margin-bottom: 56px;
+}
+.gold-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 40px;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+.reveal-delay-4 { transition-delay: 0.48s; }
+.reveal-delay-5 { transition-delay: 0.60s; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.hero-section .section-inner {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.hero-section .section-title {
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+}
+.hero-cta-wrap {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.hero-cta-note {
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: rgba(184,150,90,0.55);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   SOCIAL PROOF BAR
+   ============================================================ */
+.proof-bar {
+  background: rgba(184,150,90,0.06);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  min-height: auto;
+  display: flex;
+  align-items: center;
+}
+.proof-bar .section-inner {
+  padding: 56px 80px;
+}
+.proof-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+}
+.proof-stat {
+  text-align: center;
+  padding: 32px 20px;
+  background: rgba(8,10,16,0.4);
+  border: 1px solid var(--border);
+}
+.proof-stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.8rem);
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.proof-stat-label {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  color: var(--white-dim);
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+.proof-note {
+  text-align: center;
+  margin-top: 36px;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.proof-note strong {
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+/* ============================================================
+   STAGE SECTIONS
+   ============================================================ */
+.stage-tag {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  letter-spacing: 0.22em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  border: 1px solid var(--gold-dim);
+  padding: 6px 18px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.stage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.stage-grid.full { grid-template-columns: 1fr; max-width: 900px; }
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+.info-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 1.05rem;
+  color: var(--white-dim);
+  line-height: 1.6;
+}
+.info-list li::before {
+  content: '—';
+  color: var(--gold);
+  flex-shrink: 0;
+  font-family: var(--font-ui);
+  margin-top: 1px;
+}
+.info-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 36px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.info-box-title {
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  letter-spacing: 0.2em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.deposit-callout {
+  background: rgba(184,150,90,0.08);
+  border: 1px solid rgba(184,150,90,0.3);
+  padding: 32px 36px;
+  margin-bottom: 40px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.deposit-amount {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.deposit-label {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: var(--white-dim);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   SET OS METHODOLOGY
+   ============================================================ */
+.setos-flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  margin-top: 56px;
+  margin-bottom: 64px;
+}
+.setos-step {
+  background: rgba(8,10,16,0.55);
+  border: 1px solid var(--border);
+  padding: 36px 28px;
+  position: relative;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.setos-step-num {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: rgba(212,176,120,0.45);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.setos-step-title {
+  font-family: var(--font-ui);
+  font-size: 0.98rem;
+  letter-spacing: 0.18em;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.setos-step-text {
+  font-size: 0.98rem;
+  color: var(--white-dim);
+  line-height: 1.65;
+}
+.setos-arrow {
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 18px;
+  height: 18px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+/* ============================================================
+   VIDEO TILES
+   ============================================================ */
+.video-tiles-label {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.video-tiles-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.video-tiles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  margin-bottom: 56px;
+}
+.video-tile {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #0a0c14;
+}
+.video-tile iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+  pointer-events: none;
+}
+.video-tile-num {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(240,237,232,0.5);
+  z-index: 3;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   PACKAGES
+   ============================================================ */
+.packages-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.fee-callout {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-md);
+  background: rgba(8,10,16,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 32px 52px;
+  margin-top: 48px;
+}
+.fee-label {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  color: var(--white-faint);
+  text-transform: uppercase;
+}
+.fee-amount {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.fee-sub {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--white-faint);
+  text-transform: uppercase;
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.6;
+}
+.package-section { min-height: auto; padding: 80px 0; }
+.package-section .section-inner { padding-top: 80px; padding-bottom: 80px; }
+.pkg-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 52px;
+  flex-wrap: wrap;
+}
+.pkg-number {
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  letter-spacing: 0.25em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.pkg-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+.pkg-title em { font-style: italic; color: var(--gold-light); }
+.pkg-outcome {
+  font-size: 1.15rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+  max-width: 700px;
+  margin-bottom: 12px;
+}
+.pkg-outcome strong {
+  color: var(--gold-light);
+  font-weight: 400;
+}
+.pkg-price-wrap {
+  text-align: right;
+  flex-shrink: 0;
+}
+.pkg-price {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.pkg-price-label {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--white-faint);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.pkg-divider { height: 1px; background: var(--border); margin-bottom: 40px; }
+.pkg-features {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 40px;
+}
+.pkg-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1.05rem;
+  color: var(--white-dim);
+  line-height: 1.5;
+}
+.pkg-features li::before {
+  content: '—';
+  color: var(--gold);
+  flex-shrink: 0;
+  font-family: var(--font-ui);
+}
+.pkg-badge {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  border: 1px solid var(--gold-dim);
+  padding: 5px 14px;
+  margin-bottom: 16px;
+}
+.pkg-sub-section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.pkg-sub-title {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.pkg-card-transparent {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 52px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.pkg-card-solid {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 52px;
+}
+
+/* ============================================================
+   WHY THIS WORKS
+   ============================================================ */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  margin-top: 56px;
+}
+.why-cell {
+  background: rgba(8,10,16,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  padding: 40px;
+}
+.why-num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 300;
+  color: rgba(212,176,120,0.45);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.why-title {
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.why-text {
+  font-size: 1.05rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   CTA / CONTACT
+   ============================================================ */
+.cta-section {
+  background: var(--deep);
+  text-align: center;
+  min-height: auto;
+}
+.cta-section .section-inner {
+  padding: 120px 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cta-headline {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5.5vw, 4.8rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold-light);
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+.cta-divider-text {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--white-faint);
+  text-transform: uppercase;
+  margin-bottom: 64px;
+}
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 48px;
+}
+.cta-btn {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 18px 40px;
+  border: 1px solid var(--border-md);
+  color: var(--white-dim);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cta-btn:hover { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+.cta-btn.primary { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+.cta-btn.primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+.cta-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+@keyframes ctaBounce {
+  0%   { transform: translateY(0) scale(1); }
+  30%  { transform: translateY(-7px) scale(1.08); }
+  50%  { transform: translateY(-3px) scale(1.04); }
+  70%  { transform: translateY(-9px) scale(1.1); }
+  85%  { transform: translateY(-2px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+.cta-hint-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.cta-hint-text {
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 1;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.cta-bounce-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  opacity: 0.8;
+  animation: ctaBounce 1.6s cubic-bezier(0.4,0,0.2,1) infinite;
+  margin-bottom: 8px;
+}
+.cta-bounce-arrow svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cta-btn-email {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 18px 40px;
+  border: 1px solid var(--border-md);
+  color: var(--white-dim);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background: none;
+}
+.cta-btn-email:hover { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+.cta-btn-email svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+#copyToast {
+  position: fixed;
+  bottom: 88px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: var(--gold);
+  color: var(--deep);
+  font-family: var(--font-ui);
+  font-size: 0.73rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 10px 28px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 9000;
+}
+#copyToast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.team-links {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+.team-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  border: 1px solid var(--border);
+  padding: 12px 24px;
+  transition: color 0.25s, border-color 0.25s, background 0.25s;
+}
+.team-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+.team-link:hover { color: var(--gold); border-color: var(--gold-dim); background: rgba(184,150,90,0.05); }
+.cta-footer {
+  margin-top: 80px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--white-faint);
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+}
+.currency-note {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 28px 36px;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+.currency-title {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.currency-text {
+  font-size: 1.05rem;
+  color: var(--white-dim);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   BACK TO TOP
+   ============================================================ */
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 700;
+  width: 44px;
+  height: 44px;
+  background: rgba(8,10,16,0.7);
+  border: 1px solid var(--border-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s, transform 0.3s, background 0.2s, border-color 0.2s;
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); }
+.back-to-top:hover { background: rgba(184,150,90,0.15); border-color: var(--gold); }
+.back-to-top svg { width: 16px; height: 16px; stroke: var(--white-dim); fill: none; stroke-width: 1.5; }
+
+/* ============================================================
+   SOUND TOGGLE
+   ============================================================ */
+.sound-toggle {
+  display: none;
+}
+.sound-toggle.active {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(8,10,16,0.82);
+  border: 1px solid rgba(184,150,90,0.35);
+  color: var(--white-dim);
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 11px 18px 11px 14px;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, color 0.25s, opacity 0.25s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.sound-toggle:hover {
+  background: rgba(184,150,90,0.12);
+  border-color: rgba(184,150,90,0.55);
+  color: var(--gold-light);
+}
+.sound-toggle svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.sound-toggle.muted {
+  color: rgba(240,237,232,0.38);
+  border-color: rgba(184,150,90,0.14);
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET ≤ 900px
+   ============================================================ */
+@media (max-width: 900px) {
+  html, body { overflow-x: hidden; }
+  .section-inner                    { padding: 72px 28px; }
+  .hero-section .section-inner      { padding: 100px 28px 80px; }
+  .cta-section  .section-inner      { padding: 72px 28px; }
+  .section-eyebrow                  { font-size: 0.68rem; }
+  .section-title                    { font-size: clamp(2rem, 7vw, 3rem) !important; }
+  .section-subtitle                 { font-size: 1rem; max-width: 100%; }
+  .cta-headline                     { font-size: clamp(2rem, 6vw, 3rem) !important; }
+  .splash-brand                     { font-size: clamp(2.4rem, 11vw, 5rem); }
+  .splash-subtitle                  { font-size: clamp(0.58rem, 2.6vw, 0.88rem); }
+  .splash-logo                      { width: clamp(200px, 72vw, 340px); margin-bottom: 24px; }
+  .splash-enter-text                { font-size: clamp(2.4rem, 9vw, 3.6rem); }
+  .stage-grid                       { grid-template-columns: 1fr !important; gap: 36px; }
+  .why-grid                         { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .video-tiles-grid                 { grid-template-columns: 1fr 1fr; gap: 3px; }
+  .proof-stats                      { grid-template-columns: 1fr 1fr; }
+  .setos-flow                       { grid-template-columns: 1fr 1fr; }
+  .setos-arrow                      { display: none; }
+  .pkg-features                     { grid-template-columns: 1fr; }
+  .pkg-header                       { flex-direction: column; gap: 16px; }
+  .pkg-price-wrap                   { text-align: left; }
+  .pkg-card-solid, .pkg-card-transparent { padding: 28px 20px; }
+  .pkg-title                        { font-size: clamp(1.4rem, 5vw, 2rem) !important; }
+  .cta-buttons                      { flex-direction: column; align-items: center; gap: 24px; width: 100%; }
+  .cta-hint-wrap                    { width: 100%; max-width: 360px; }
+  .cta-btn, .cta-btn-email          { width: 100%; justify-content: center; box-sizing: border-box; }
+  .side-nav                         { display: none !important; }
+  .sound-toggle                     { bottom: 18px; left: 14px; padding: 9px 13px 9px 10px; font-size: 0.54rem; letter-spacing: 0.14em; }
+  .back-to-top                      { bottom: 18px; right: 14px; width: 40px; height: 40px; }
+  .splash-inner                     { padding: 0 24px; }
+  .deposit-amount                   { font-size: clamp(2.8rem, 10vw, 4rem); }
+  .proof-bar .section-inner         { padding: 40px 28px; }
+  [style*="repeat(3,1fr)"]          { grid-template-columns: 1fr !important; gap: 16px !important; }
+  [style*="repeat(3, 1fr)"]         { grid-template-columns: 1fr !important; gap: 16px !important; }
+}
+
+/* ============================================================
+   RESPONSIVE — PHONE ≤ 600px
+   ============================================================ */
+@media (max-width: 600px) {
+  .section-inner                    { padding: 56px 18px; }
+  .hero-section .section-inner      { padding: 80px 18px 56px; }
+  .cta-section  .section-inner      { padding: 60px 18px; }
+  .video-tiles-grid                 { grid-template-columns: 1fr; }
+  .why-grid                         { grid-template-columns: 1fr; }
+  .proof-stats                      { grid-template-columns: 1fr; }
+  .setos-flow                       { grid-template-columns: 1fr; }
+  .pkg-price                        { font-size: clamp(2rem, 9vw, 3rem); }
+  .pkg-card-solid, .pkg-card-transparent { padding: 24px 16px; }
+  .splash-logo                      { width: clamp(160px, 80vw, 280px); margin-bottom: 18px; }
+  .splash-brand                     { font-size: clamp(2rem, 12vw, 4rem); letter-spacing: 0.06em; }
+  .section-title                    { font-size: clamp(1.75rem, 8vw, 2.6rem) !important; }
+  .cta-headline                     { font-size: clamp(1.75rem, 8vw, 2.6rem) !important; }
+  .cta-btn.primary, .cta-btn        { padding: 16px 24px; font-size: 0.6rem; }
+  .sound-toggle                     { padding: 10px 12px; gap: 0; }
+  #soundLabel                       { display: none; }
+  .proof-bar .section-inner         { padding: 32px 18px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SPLASH SCREEN
+     ============================================================ -->
+<div id="splash">
+  <div class="splash-video-wrap" aria-hidden="true">
+    <iframe
+      src="https://player.vimeo.com/video/1174452087?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&portrait=0&dnt=1"
+      allow="autoplay; fullscreen; picture-in-picture"
+    ></iframe>
+  </div>
+  <div class="splash-grain" aria-hidden="true"></div>
+  <div class="splash-sparkle" id="splashSparkle" aria-hidden="true"></div>
+  <div class="splash-inner">
+    <img src="assets/images/set-ventures-banner.png" alt="SET Enterprises Corp." class="splash-logo" />
+    <div class="splash-brand">SET Enterprises</div>
+    <div class="splash-subtitle">Capital Advisory</div>
+    <div class="splash-rule" aria-hidden="true"></div>
+    <div class="splash-loading" id="splashLoading">
+      <div class="splash-dots" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="splash-loading-text">Preparing your advisory overview</div>
+    </div>
+    <button class="splash-enter" id="splashEnter" aria-label="Enter the presentation">
+      <span class="splash-enter-text">Enter Here</span>
+      <span class="splash-enter-arrow">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </span>
+    </button>
+  </div>
+</div>
+
+<!-- ============================================================
+     FIXED PAGE BACKGROUND VIDEO
+     ============================================================ -->
+<div id="pageBgVideo" aria-hidden="true">
+  <iframe
+    id="pageBgIframe"
+    data-src="https://player.vimeo.com/video/1174452087?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&portrait=0&dnt=1"
+    allow="autoplay; fullscreen; picture-in-picture"
+  ></iframe>
+</div>
+
+<!-- ============================================================
+     SIDE NAVIGATION
+     ============================================================ -->
+<nav class="side-nav" aria-label="Section navigation" id="sideNav" style="display:none;">
+  <button class="side-dot" data-target="hero"    data-label="Overview"></button>
+  <button class="side-dot" data-target="proof"   data-label="Track Record"></button>
+  <button class="side-dot" data-target="problem" data-label="The Problem"></button>
+  <button class="side-dot" data-target="setos"   data-label="The SET OS"></button>
+  <button class="side-dot" data-target="materials" data-label="What We Build"></button>
+  <button class="side-dot" data-target="stage4"  data-label="Packages"></button>
+  <button class="side-dot" data-target="pkg1"    data-label="Package 01"></button>
+  <button class="side-dot" data-target="pkg2"    data-label="Package 02"></button>
+  <button class="side-dot" data-target="pkg3"    data-label="Package 03"></button>
+  <button class="side-dot" data-target="why"     data-label="Why It Works"></button>
+  <button class="side-dot" data-target="contact" data-label="Contact"></button>
+</nav>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<div id="main">
+
+<!-- ——————————————————————————————
+     HERO (video bg)
+     —————————————————————————————— -->
+<section class="hero-section video-bg" id="hero" aria-label="Overview">
+  <div class="section-inner">
+    <img src="assets/images/set-ventures-banner.png" class="section-logo reveal" style="margin:0 auto 32px;" alt="SET Enterprises" />
+    <div class="section-eyebrow reveal">Capital Advisory · Powered by the SET OS</div>
+    <h1 class="section-title reveal reveal-delay-1">
+      The Story You Tell Investors Should Be the Same Story <em>Your Materials Prove</em>
+    </h1>
+    <p class="section-subtitle reveal reveal-delay-2">
+      Most founders go to market with a pitch they believe in and materials that don't back it up. The narrative says one thing. The deck says another. The financials raise questions nobody prepared for. That gap is where deals die. The SET OS closes it, aligning your marketing narrative, investor materials, and due diligence package into a single, defensible position before you ever enter the room.
+    </p>
+    <div class="gold-rule reveal reveal-delay-3"></div>
+    <div class="hero-cta-wrap reveal reveal-delay-4">
+      <a href="https://calendly.com/marketingbyset/" target="_blank" rel="noopener noreferrer" class="cta-btn primary">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        Book a Consultation
+      </a>
+      <div class="hero-cta-note">Or begin with a $250 situational review, scroll to learn more</div>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     SOCIAL PROOF BAR
+     —————————————————————————————— -->
+<section class="proof-bar solid-bg" id="proof" aria-label="Track Record">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal" style="text-align:center;margin-bottom:36px;">Why Founders Trust This Process</div>
+    <div class="proof-stats reveal reveal-delay-1">
+      <div class="proof-stat">
+        <div class="proof-stat-number">350K+</div>
+        <div class="proof-stat-label">Instagram Followers<br/>Chris Marchese</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-stat-number">Millions</div>
+        <div class="proof-stat-label">Monthly Views<br/>&amp; Reach</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-stat-number">100+</div>
+        <div class="proof-stat-label">Capital Raises<br/>Reviewed</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-stat-number">3</div>
+        <div class="proof-stat-label">Integrated Divisions<br/>Capital · Media · Advisory</div>
+      </div>
+    </div>
+    <p class="proof-note reveal reveal-delay-2">
+      Chris Marchese doesn't just advise on capital raises, he builds the audience that makes them visible. With <strong>over 350,000 followers on Instagram</strong> and millions of views in monthly reach, the marketing narrative we create isn't hypothetical. It's already in market, generating real attention, before your materials ever reach an investor's desk.
+    </p>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     THE PROBLEM
+     —————————————————————————————— -->
+<section class="solid-bg-alt" id="problem" aria-label="The Problem">
+  <div class="section-inner">
+    <div class="stage-tag reveal">The Reality</div>
+    <h2 class="section-title reveal reveal-delay-1">Good Businesses Don't Get Funded. <em>Capital-Ready Businesses Do.</em></h2>
+    <p class="section-subtitle reveal reveal-delay-2">
+      There's a difference between having a strong business and having a capital-ready package. Investors don't reject bad companies. They pass on ones that make it hard to say yes. A projection that doesn't match the story. A structure that raises more questions than it answers. Materials that look good individually but fall apart as a set.
+    </p>
+    <div class="stage-grid reveal reveal-delay-2">
+      <div>
+        <div class="info-box">
+          <div class="info-box-title">Where Deals Stall</div>
+          <p style="font-size:1.15rem;color:var(--white-dim);line-height:1.7;margin-bottom:20px;">None of these kill a deal outright. They just make it harder to say yes. And in a world where investors see dozens of opportunities a week, 'harder to say yes' is the same as 'no.'</p>
+          <ul class="info-list">
+            <li>The marketing says one thing, the financials suggest another</li>
+            <li>Due diligence materials aren't built to institutional standards</li>
+            <li>The narrative you tell in the room doesn't survive the data room</li>
+            <li>No one stress-tested the package from an investor's perspective</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="info-box" style="margin-top:3px;">
+          <div class="info-box-title">What the SET OS Solves</div>
+          <p style="font-size:1.15rem;color:var(--white-dim);line-height:1.7;margin-bottom:20px;">We don't just make things look better. We make them <em style="color:var(--gold-light);">hold up</em>, under scrutiny, under comparison, and under the sharp questions that come at the end of the table.</p>
+          <ul class="info-list">
+            <li>Narrative alignment, one story from marketing through data room</li>
+            <li>Institutional-grade due diligence materials that match how firms actually evaluate</li>
+            <li>Pre-sales visibility through Chris's audience before investors see the package</li>
+            <li>A system, not a service. The SET OS is a methodology, not a template</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     THE SET OS — METHODOLOGY
+     —————————————————————————————— -->
+<section class="video-bg" id="setos" aria-label="The SET OS">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Proprietary Methodology</div>
+    <h2 class="section-title reveal reveal-delay-1">The <em>SET OS</em></h2>
+    <p class="section-subtitle reveal reveal-delay-2">
+      The SET OS is our proprietary system for transforming a raw business opportunity into an institutional-grade capital package. It doesn't start with design. It starts with the question investors will ask, and works backward to make sure every document, every number, and every piece of marketing tells the same defensible story.
+    </p>
+
+    <div class="setos-flow reveal reveal-delay-3">
+      <div class="setos-step">
+        <div class="setos-step-num">01</div>
+        <div class="setos-step-title">Diagnose</div>
+        <div class="setos-step-text">We review what you have the way an underwriter would, not to validate, but to find where the narrative breaks, where assumptions are thin, and where an investor would pause.</div>
+        <svg class="setos-arrow" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </div>
+      <div class="setos-step">
+        <div class="setos-step-num">02</div>
+        <div class="setos-step-title">Align</div>
+        <div class="setos-step-text">We lock the narrative. Marketing, pitch deck, financials, and data room all tell the same story. No contradictions. No gaps. One coherent position that survives scrutiny.</div>
+        <svg class="setos-arrow" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </div>
+      <div class="setos-step">
+        <div class="setos-step-num">03</div>
+        <div class="setos-step-title">Build</div>
+        <div class="setos-step-text">We produce institutional-grade materials, not templates. Pitch decks, financial models, data rooms, and investor-facing media that meet the standard firms actually hold.</div>
+        <svg class="setos-arrow" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </div>
+      <div class="setos-step">
+        <div class="setos-step-num">04</div>
+        <div class="setos-step-title">Amplify</div>
+        <div class="setos-step-text">We activate Chris's audience and media engine to generate pre-sale visibility, so when your package reaches investors, they've already seen the opportunity in market.</div>
+      </div>
+    </div>
+
+    <div class="info-box reveal reveal-delay-4" style="max-width:800px;">
+      <div class="info-box-title">Why This Sequence Matters</div>
+      <p style="font-size:1.15rem;color:var(--white-dim);line-height:1.7;">
+        Most advisory firms build materials and hope the story holds. The SET OS works in reverse: we define the story investors need to hear, stress-test it against institutional due diligence standards, then build every asset, marketing, materials, media, to prove that exact narrative. The marketing we run through Chris's audience isn't separate from the raise. It <em style="color:var(--gold-light);">is</em> the raise, it's pre-sales positioning that primes investors before the deck ever arrives.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     SITUATIONAL REVIEW ($250)
+     —————————————————————————————— -->
+<section class="solid-bg" id="review" aria-label="Situational Review">
+  <div class="section-inner">
+    <div class="stage-tag reveal">Start Here</div>
+    <h2 class="section-title reveal reveal-delay-1">A Structured Review. <em>A Clear Path Forward.</em></h2>
+    <p class="section-subtitle reveal reveal-delay-2">
+      Before anything gets built, we run your current materials through the SET OS diagnostic. This isn't a sales call, it's an honest assessment of where you stand.
+    </p>
+    <div class="stage-grid reveal reveal-delay-2">
+      <div>
+        <div class="deposit-callout">
+          <div class="deposit-amount">$250</div>
+          <div class="deposit-label">Situational Review, Your Starting Point</div>
+        </div>
+        <ul class="info-list">
+          <li>Send us what you have, deck, financials, any materials you're planning to use</li>
+          <li>We review it through the SET OS framework: narrative alignment, institutional readiness, and investor psychology</li>
+          <li>You get back a clear picture of what holds up and what doesn't. Not opinions, findings</li>
+          <li>Applies toward your full engagement if we proceed together</li>
+        </ul>
+      </div>
+      <div>
+        <div class="info-box" style="margin-top:3px;">
+          <div class="info-box-title">What the Review Reveals</div>
+          <ul class="info-list">
+            <li>Whether your narrative survives from marketing to data room</li>
+            <li>Where institutional-grade investors would pause or pass</li>
+            <li>Specific gaps between what you say and what your materials prove</li>
+            <li>A recommendation: proceed, pivot, or strengthen before going to market</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     WHAT WE BUILD (MATERIALS)
+     —————————————————————————————— -->
+<section class="solid-bg-alt" id="materials" aria-label="What We Build">
+  <div class="section-inner">
+    <div class="stage-tag reveal">The SET OS Output</div>
+    <h2 class="section-title reveal reveal-delay-1">Institutional-Grade Materials That <em>Prove Your Narrative</em></h2>
+    <p class="section-subtitle reveal reveal-delay-2">
+      Every document we produce is built to one standard: would this hold up if a managing partner read it alone at 10 p.m. on a Tuesday? That's the bar. Not beautiful slides. Not impressive templates. Materials that work as one defensible position from the first teaser through final due diligence.
+    </p>
+
+    <!-- 4 Video Tiles -->
+    <div class="video-tiles-label reveal reveal-delay-3">Media &amp; Visibility Examples</div>
+    <div class="video-tiles-grid reveal reveal-delay-3" id="videoTilesGrid">
+      <div class="video-tile" aria-label="Media example 1">
+        <iframe id="tile1" data-vimeo="1174206252" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        <div class="video-tile-num">Example 01</div>
+      </div>
+      <div class="video-tile" aria-label="Media example 2">
+        <iframe id="tile2" data-vimeo="1173874678" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        <div class="video-tile-num">Example 02</div>
+      </div>
+      <div class="video-tile" aria-label="Media example 3">
+        <iframe id="tile3" data-vimeo="1173873229" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        <div class="video-tile-num">Example 03</div>
+      </div>
+      <div class="video-tile" aria-label="Media example 4">
+        <iframe id="tile4" data-vimeo="1173874041" src="" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        <div class="video-tile-num">Example 04</div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-4">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+        <div class="info-box">
+          <div class="info-box-title">Narrative-First Construction</div>
+          <p style="font-size:1.05rem;color:var(--white-dim);line-height:1.65;">Every asset starts from the same narrative anchor. The marketing content Chris runs to his 350K+ audience sets the tone. The deck reinforces it. The data room proves it. No contradictions.</p>
+        </div>
+        <div class="info-box">
+          <div class="info-box-title">Firm-Specific Calibration</div>
+          <p style="font-size:1.05rem;color:var(--white-dim);line-height:1.65;">Venture thinks differently than family offices. Institutional capital has different triggers. We build materials that speak to your target capital source, not a generic audience.</p>
+        </div>
+        <div class="info-box">
+          <div class="info-box-title">Pre-Sale Market Validation</div>
+          <p style="font-size:1.05rem;color:var(--white-dim);line-height:1.65;">Through Chris's audience and media engine, your opportunity enters the market before investors see the package. When they open the deck, they've already seen the momentum.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     PACKAGES INTRO (video bg)
+     —————————————————————————————— -->
+<section class="video-bg" id="stage4" aria-label="Packages">
+  <div class="section-inner">
+    <div class="packages-intro">
+      <div class="stage-tag reveal">SET OS Engagement Tiers</div>
+      <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">Advisory <em>Engagement</em> Packages</h2>
+      <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto 0;">
+        Every engagement begins with a $2,000 assessment fee. We use this to fully understand the scope of your project, determine which tier is the right fit, and begin the initial stages of underwriting. This fee is applied toward your selected package.
+      </p>
+      <div class="fee-callout reveal reveal-delay-3">
+        <div class="fee-label">Assessment &amp; Engagement Fee, All Packages</div>
+        <div class="fee-amount">$2,000</div>
+        <div class="fee-sub">Full project assessment · Scope &amp; tier determination · Beginning stages of underwriting · Applied toward your selected package</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     PACKAGE 1
+     —————————————————————————————— -->
+<section class="solid-bg package-section" id="pkg1" aria-label="Package 1">
+  <div class="section-inner">
+    <div class="pkg-card-solid reveal">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-number">Package 01</div>
+          <h3 class="pkg-title">Digital Capital <em>Launch</em></h3>
+        </div>
+        <div class="pkg-price-wrap">
+          <div class="pkg-badge">Entry Tier</div>
+          <div class="pkg-price">$10,000</div>
+          <div class="pkg-price-label">Advisory Package</div>
+        </div>
+      </div>
+      <div class="pkg-divider"></div>
+      <p class="pkg-outcome">
+        <strong>The outcome:</strong> A capital-ready digital presence that positions your opportunity with clarity and visual authority. Investors see a polished, narrative-aligned package, built through the SET OS, before you ever enter the room.
+      </p>
+      <ul class="pkg-features">
+        <li>Full SET OS diagnostic and narrative alignment</li>
+        <li>Capital structuring consultation</li>
+        <li>Investor introduction preparation</li>
+        <li>Data room review and institutional-grade recommendations</li>
+        <li>Online deal marketing strategy</li>
+        <li>AI-generated promotional visuals and cinematic scenes</li>
+        <li>AI-generated interactions featuring Chris within the project environment</li>
+        <li>Digital promotional reels for pre-sales positioning</li>
+        <li>Investor presentation support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     PACKAGE 2
+     —————————————————————————————— -->
+<section class="solid-bg-alt package-section" id="pkg2" aria-label="Package 2">
+  <div class="section-inner">
+    <div class="pkg-card-solid reveal">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-number">Package 02</div>
+          <h3 class="pkg-title">Hybrid Media <em>Capital Package</em></h3>
+        </div>
+        <div class="pkg-price-wrap">
+          <div class="pkg-badge">Mid Tier</div>
+          <div class="pkg-price">$15,000</div>
+          <div class="pkg-price-label">Advisory Package</div>
+        </div>
+      </div>
+      <div class="pkg-divider"></div>
+      <p class="pkg-outcome">
+        <strong>The outcome:</strong> Everything in Package 01, elevated with real media production and expanded market activation. The SET OS builds your institutional-grade materials while Chris's media engine drives pre-sale visibility across an audience of millions in monthly reach, so investors encounter your opportunity in the wild before your deck arrives.
+      </p>
+
+      <div class="pkg-sub-section" style="margin-top:0;padding-top:0;border-top:none;">
+        <div class="pkg-sub-title">Full SET OS Capital Foundation</div>
+        <ul class="pkg-features">
+          <li>Full SET OS diagnostic and narrative alignment</li>
+          <li>Capital structuring consultation</li>
+          <li>Investor introduction preparation</li>
+          <li>Data room review and institutional-grade recommendations</li>
+          <li>Online deal marketing strategy</li>
+          <li>Investor presentation support</li>
+          <li>AI-generated promotional visuals and cinematic scenes</li>
+          <li>AI-generated interactions featuring Chris within the environment</li>
+          <li>Digital promotional reels</li>
+        </ul>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Enhanced Media &amp; Market Activation</div>
+        <ul class="pkg-features">
+          <li>Hybrid AI + real video production</li>
+          <li>Enhanced visual storytelling for investor-facing media</li>
+          <li>Additional Chris appearances with the project environment</li>
+          <li>Expanded investor marketing strategy</li>
+          <li>Social media investor outreach through Chris's network</li>
+          <li>Capital raise positioning consultation</li>
+          <li>Marketing reels for pre-sales amplification</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     PACKAGE 3 (video bg)
+     —————————————————————————————— -->
+<section class="video-bg package-section" id="pkg3" aria-label="Package 3">
+  <div class="section-inner">
+    <div class="pkg-card-transparent reveal">
+      <div class="pkg-header">
+        <div>
+          <div class="pkg-number">Package 03</div>
+          <h3 class="pkg-title">Premium Capital <em>Activation</em></h3>
+        </div>
+        <div class="pkg-price-wrap">
+          <div class="pkg-badge">Flagship</div>
+          <div class="pkg-price">$20,000</div>
+          <div class="pkg-price-label">Advisory Package</div>
+        </div>
+      </div>
+      <div class="pkg-divider"></div>
+      <p class="pkg-outcome">
+        <strong>The outcome:</strong> The full SET OS at maximum intensity, built on decades of deal data and countless capital raises. Every document is prepared to institutional standards, structured in the exact format and consideration points that investors and family offices require to actually deploy capital. Beyond the materials, we craft the narrative storytelling that triggers the emotions and conviction needed to get investors inspired, motivated, and ready to be part of the project. This is how capital-ready businesses enter the market when the stakes are highest.
+      </p>
+
+      <div class="pkg-sub-section" style="margin-top:0;padding-top:0;border-top:none;">
+        <div class="pkg-sub-title">Full SET OS Capital Foundation</div>
+        <ul class="pkg-features">
+          <li>Full SET OS diagnostic and narrative alignment</li>
+          <li>Capital structuring consultation</li>
+          <li>Investor introduction preparation</li>
+          <li>Data room review and institutional-grade recommendations</li>
+          <li>Online deal marketing strategy</li>
+          <li>Investor presentation support</li>
+          <li>AI-generated promotional visuals and cinematic scenes</li>
+          <li>AI-generated interactions featuring Chris within the environment</li>
+          <li>Digital promotional reels</li>
+        </ul>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Enhanced Media &amp; Market Activation</div>
+        <ul class="pkg-features">
+          <li>Hybrid AI + real video production</li>
+          <li>Enhanced visual storytelling</li>
+          <li>Additional Chris appearances with the project environment</li>
+          <li>Expanded investor marketing strategy</li>
+          <li>Social media investor outreach through Chris's network</li>
+          <li>Capital raise positioning consultation</li>
+          <li>Marketing reels for pre-sales amplification</li>
+        </ul>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Real Event Activation</div>
+        <ul class="pkg-features">
+          <li>Live fashion or brand event at the project space</li>
+          <li>Space transformation and staging</li>
+          <li>Cinematic production of the venue</li>
+        </ul>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Movie-Grade Content Production</div>
+        <ul class="pkg-features">
+          <li>Commercial-quality promotional film</li>
+          <li>Event recap video</li>
+          <li>Marketing reels for investor promotion</li>
+          <li>Cinematic storytelling around the project</li>
+        </ul>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Premium Market Amplification</div>
+        <ul class="pkg-features">
+          <li>Premium marketing rollout through Chris's full media network</li>
+          <li>Enhanced brand visibility across Chris's audience of millions in monthly reach</li>
+          <li>Professional media distribution</li>
+        </ul>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Why This Tier Exists</div>
+        <p style="font-size:1.05rem;color:var(--white-dim);line-height:1.7;margin-bottom:16px;">Our process draws on decades worth of data and countless deals to fully and effectively assess, prepare, and refine every document to institutional standards. We understand the exact format, structure, and consideration points that investors and family offices need to see before they can deploy capital. But institutional readiness alone doesn't close deals. The storytelling has to trigger the right emotions, convey the project in a way that gets investors and partners genuinely inspired and motivated to be part of it. This tier delivers both.</p>
+      </div>
+
+      <div class="pkg-sub-section">
+        <div class="pkg-sub-title">Ready to Begin?</div>
+        <p style="font-size:1.05rem;color:var(--white-dim);line-height:1.7;margin-bottom:24px;">Start with a situational review. If there's a fit, this is where the engagement leads.</p>
+        <a class="cta-btn primary" href="https://calendly.com/marketingbyset/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Submit Your Deal for Review, $250
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     WHY THIS WORKS (video bg)
+     —————————————————————————————— -->
+<section class="video-bg" id="why" aria-label="Why This Works">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">The Methodology in Practice</div>
+    <h2 class="section-title reveal reveal-delay-1">Why the SET OS <em>Works</em></h2>
+    <p class="section-subtitle reveal reveal-delay-2">
+      Other advisory firms make materials. We build a system where the marketing narrative, the investor package, and the due diligence documents are the same story told at different depths. That's why it holds up.
+    </p>
+    <div class="why-grid reveal reveal-delay-3">
+      <div class="why-cell">
+        <div class="why-num">01</div>
+        <div class="why-title">Narrative-First, Not Design-First</div>
+        <p class="why-text">We define the story investors need to hear, then build every document to prove it. The marketing Chris runs to his audience of millions isn't separate from the raise, it's the opening argument. By the time the deck arrives, the investor has already seen the opportunity in market.</p>
+      </div>
+      <div class="why-cell">
+        <div class="why-num">02</div>
+        <div class="why-title">Institutional-Grade Standard</div>
+        <p class="why-text">We build materials to the standard institutional firms actually hold, not the standard most founders think is enough. That means financials that can be defended in plain terms, structures that are obvious on first read, and data rooms that answer the questions before they're asked.</p>
+      </div>
+      <div class="why-cell">
+        <div class="why-num">03</div>
+        <div class="why-title">Pre-Sales Through Real Audience</div>
+        <p class="why-text">Chris's Instagram audience isn't vanity reach, it's a pre-sales engine. We create market visibility for your opportunity before investors see the package. When they open the deck, they've already encountered the project. That changes the conversation entirely.</p>
+      </div>
+      <div class="why-cell">
+        <div class="why-num">04</div>
+        <div class="why-title">One Position, Zero Contradictions</div>
+        <p class="why-text">The marketing says it. The pitch deck reinforces it. The financial model proves it. The data room defends it. When nothing in your package contradicts anything else, you enter the room differently. That confidence isn't performance, it's the result of the work.</p>
+      </div>
+    </div>
+
+    <div class="currency-note reveal reveal-delay-4" style="margin-top:64px;">
+      <div class="currency-title">Pricing Currency</div>
+      <p class="currency-text">Canadian clients are invoiced in CAD. U.S. clients are invoiced in USD. Pricing is equivalent across jurisdictions at current exchange rates.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————
+     CTA / CONTACT
+     —————————————————————————————— -->
+<section class="cta-section" id="contact" aria-label="Contact">
+  <div class="section-inner">
+    <img src="assets/images/set-ventures-banner.png" class="section-logo reveal" style="margin:0 auto 40px;" alt="SET Enterprises" />
+    <div class="section-eyebrow reveal">Start with a Clear View</div>
+    <div class="cta-headline reveal reveal-delay-1">Before You Send <em>Another Deck</em></div>
+    <div class="cta-divider-text reveal reveal-delay-2">Set Enterprises &nbsp;·&nbsp; Set Ventures &nbsp;·&nbsp; Set Marketing</div>
+    <div class="gold-rule reveal reveal-delay-2" style="margin:0 auto 48px;"></div>
+    <p class="reveal reveal-delay-3" style="font-size:1.1rem;color:var(--white-dim);max-width:560px;text-align:center;line-height:1.8;margin-bottom:12px;">
+      Run your materials through the SET OS diagnostic. Find out what holds up and what doesn't, before an investor does it for you. No disclosure required to begin. $250 applied toward your engagement.
+    </p>
+    <div class="cta-buttons reveal reveal-delay-4">
+      <div class="cta-hint-wrap">
+        <div class="cta-hint-text">Click here to schedule a consultation</div>
+        <div class="cta-bounce-arrow">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <a href="https://calendly.com/marketingbyset/" target="_blank" rel="noopener noreferrer" class="cta-btn primary">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Book a Consultation
+        </a>
+      </div>
+      <div class="cta-hint-wrap">
+        <div class="cta-hint-text">Click to copy email</div>
+        <div class="cta-bounce-arrow" style="animation-delay:0.4s;">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <button class="cta-btn-email" onclick="copyEmail(this)">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          chris@marketingbyset.com
+        </button>
+      </div>
+    </div>
+    <p class="reveal reveal-delay-4" style="margin-top:24px;font-family:var(--font-ui);font-size:0.88rem;letter-spacing:0.2em;color:var(--gold-light);text-transform:uppercase;font-weight:500;">Situational Review · $250 · Applied toward your engagement if we proceed</p>
+    <div class="team-links reveal reveal-delay-4">
+      <a href="https://www.linkedin.com/in/thechrismarchese/" target="_blank" rel="noopener noreferrer" class="team-link">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        Chris Marchese
+      </a>
+      <a href="https://www.linkedin.com/in/tylerjamesferguson/" target="_blank" rel="noopener noreferrer" class="team-link">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        Tyler Ferguson
+      </a>
+    </div>
+    <div class="cta-footer reveal reveal-delay-4">
+      SET Enterprises · Capital Advisory · Powered by the SET OS · Confidential
+    </div>
+  </div>
+</section>
+
+</div><!-- /#main -->
+
+
+<!-- ============================================================
+     BACK TO TOP
+     ============================================================ -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<!-- ============================================================
+     COPY TOAST
+     ============================================================ -->
+<div id="copyToast">Copied to clipboard</div>
+
+
+<!-- ============================================================
+     SOUND TOGGLE
+     ============================================================ -->
+<button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">
+  <svg id="soundIconOn" viewBox="0 0 24 24">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+  </svg>
+  <svg id="soundIconOff" viewBox="0 0 24 24" style="display:none;">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+    <line x1="23" y1="9" x2="17" y2="15"></line>
+    <line x1="17" y1="9" x2="23" y2="15"></line>
+  </svg>
+  <span id="soundLabel">Sound On</span>
+</button>
+
+<!-- ============================================================
+     AUDIO
+     ============================================================ -->
+<audio id="bgAudio" loop preload="auto">
+  <source src="assets/audio/ambient.m4a" type="audio/mp4">
+</audio>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+(function () {
+  /* ── Audio ── */
+  var audio = document.getElementById('bgAudio');
+  audio.volume = 0.18;
+  var audioStarted = false;
+  function startAudio() {
+    if (audioStarted) return;
+    audioStarted = true;
+    audio.play().catch(function(){});
+  }
+  function pauseAudio() { audio.pause(); }
+  function resumeAudio() { if (audioStarted) audio.play().catch(function(){}); }
+
+  /* ── Sparkle sound (Web Audio) ── */
+  function playGlimmer() {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var notes = [1047, 1319, 1568, 2093, 2637];
+      notes.forEach(function(freq, i) {
+        var osc  = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.06);
+        gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.06);
+        gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + i * 0.06 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.06 + 0.4);
+        osc.start(ctx.currentTime + i * 0.06);
+        osc.stop(ctx.currentTime + i * 0.06 + 0.45);
+      });
+    } catch(e) {}
+  }
+
+  /* ── Sparkle particles ── */
+  function burstSparkles(btn) {
+    var container = document.getElementById('splashSparkle');
+    var rect = btn.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 2;
+    for (var i = 0; i < 22; i++) {
+      (function() {
+        var p = document.createElement('div');
+        p.className = 'sparkle-particle';
+        var angle = Math.random() * Math.PI * 2;
+        var dist  = 60 + Math.random() * 140;
+        var sx    = Math.cos(angle) * dist + 'px';
+        var sy    = (Math.sin(angle) * dist - 40) + 'px';
+        p.style.cssText = [
+          'left:' + cx + 'px',
+          'top:' + cy + 'px',
+          '--sx:' + sx,
+          '--sy:' + sy,
+          'width:' + (3 + Math.random() * 4) + 'px',
+          'height:' + (3 + Math.random() * 4) + 'px',
+          'animation: sparkleUp ' + (0.6 + Math.random() * 0.6) + 's ease ' + (Math.random() * 0.15) + 's forwards'
+        ].join(';');
+        container.appendChild(p);
+        setTimeout(function() { p.remove(); }, 1200);
+      })();
+    }
+    var ripple = document.createElement('div');
+    ripple.className = 'splash-ripple';
+    btn.appendChild(ripple);
+    setTimeout(function() { ripple.remove(); }, 900);
+  }
+
+  /* ── Splash ── */
+  var splashLoading = document.getElementById('splashLoading');
+  var splashEnter   = document.getElementById('splashEnter');
+
+  setTimeout(function () {
+    splashLoading.style.opacity = '0';
+    splashLoading.style.transition = 'opacity 0.6s ease';
+    setTimeout(function () {
+      splashLoading.style.display = 'none';
+      splashEnter.classList.add('visible');
+    }, 600);
+  }, 3000);
+
+  splashEnter.addEventListener('click', function () {
+    var splash = document.getElementById('splash');
+    var main   = document.getElementById('main');
+    var sideNav = document.getElementById('sideNav');
+    var pageBg  = document.getElementById('pageBgVideo');
+    var pageBgIframe = document.getElementById('pageBgIframe');
+
+    playGlimmer();
+    burstSparkles(splashEnter);
+    splashEnter.classList.add('entering');
+
+    pageBgIframe.src = pageBgIframe.getAttribute('data-src');
+    setTimeout(function () { pageBg.classList.add('active'); }, 200);
+
+    startAudio();
+
+    ['tile1','tile2','tile3','tile4'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        var vid = el.getAttribute('data-vimeo');
+        el.src = 'https://player.vimeo.com/video/' + vid + '?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&portrait=0&dnt=1';
+      }
+    });
+
+    setTimeout(function() {
+      splash.style.transition = 'opacity 1.2s ease';
+      splash.style.opacity = '0';
+      setTimeout(function () {
+        splash.style.display = 'none';
+        main.classList.add('active');
+        sideNav.style.display = 'flex';
+        document.getElementById('soundToggle').classList.add('active');
+      }, 1200);
+    }, 350);
+  });
+
+  /* ── Reveal on scroll ── */
+  var revealEls = document.querySelectorAll('.reveal');
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(function (el) { revealObserver.observe(el); });
+
+  /* ── Side nav dots ── */
+  var sections = ['hero','proof','problem','setos','review','materials','stage4','pkg1','pkg2','pkg3','why','contact'];
+  var dots = document.querySelectorAll('.side-dot');
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      var target = document.getElementById(dot.getAttribute('data-target'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  var sectionsObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id;
+        dots.forEach(function (dot) {
+          dot.classList.toggle('active', dot.getAttribute('data-target') === id);
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) sectionsObserver.observe(el);
+  });
+
+  /* ── Back to top ── */
+  var backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', function () {
+    backToTop.classList.toggle('visible', window.scrollY > 400);
+  });
+
+})();
+
+/* ── Sound toggle ── */
+(function() {
+  var audio = document.getElementById('bgAudio');
+  var soundToggle = document.getElementById('soundToggle');
+  var soundIconOn  = document.getElementById('soundIconOn');
+  var soundIconOff = document.getElementById('soundIconOff');
+  var soundLabel   = document.getElementById('soundLabel');
+  var isMuted = false;
+  soundToggle.addEventListener('click', function () {
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    if (isMuted) {
+      soundIconOn.style.display  = 'none';
+      soundIconOff.style.display = 'block';
+      soundLabel.textContent = 'Sound Off';
+      soundToggle.style.opacity = '0.45';
+    } else {
+      soundIconOn.style.display  = 'block';
+      soundIconOff.style.display = 'none';
+      soundLabel.textContent = 'Sound On';
+      soundToggle.style.opacity = '1';
+    }
+  });
+})();
+
+function copyEmail(btn) {
+  var email = 'chris@marketingbyset.com';
+  navigator.clipboard.writeText(email).then(function () {
+    var toast = document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  }).catch(function () {
+    var ta = document.createElement('textarea');
+    ta.value = email;
+    ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var toast = document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2400);
+  });
+}
+</script>
+
+</body>
+</html>
